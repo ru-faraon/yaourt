@@ -1,14 +1,22 @@
-#!/bin/sh -ex
-sudo pacman -Sy base-devel --needed --noconfirm
+#!/bin/bash
+pacman-db-upgrade
+yaourt -R package-query yaourt
 curl -O https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz
-tar xfz package-query.tar.gz -C /tmp
-pushd /tmp/package-query
-makepkg -sf
-sudo pacman -U --noconfirm package-query-*.pkg.tar.xz
-popd
+tar zxvf package-query.tar.gz
+cd package-query
+makepkg -si --asroot
+cd ..
 curl -O https://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz
-tar xfz yaourt.tar.gz -C /tmp
-pushd /tmp/yaourt
-makepkg -sf
-sudo pacman -U --noconfirm yaourt-*.pkg.tar.xz
-popd
+tar zxvf yaourt.tar.gz
+cd yaourt
+makepkg -si --asroot
+cd ..
+curl -O https://aur.archlinux.org/packages/ya/yaourt-gui/yaourt-gui.tar.gz
+tar zxvf yaourt-gui.tar.gz
+cd yaourt-gui
+makepkg -si --asroot
+cd ..
+pacman -S wget
+pacman -S fakeroot
+yaourt -S yaourt-gui
+# Удалить скаченные архивы и папки.
