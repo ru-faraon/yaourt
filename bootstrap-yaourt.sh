@@ -1,4 +1,7 @@
 #!/bin/bash
+
+pacman -S wget
+pacman -S fakeroot
 pacman-db-upgrade
 yaourt -R package-query yaourt
 curl -O https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz
@@ -16,7 +19,5 @@ tar zxvf yaourt-gui.tar.gz
 cd yaourt-gui
 makepkg -si --asroot
 cd ..
-pacman -S wget
-pacman -S fakeroot
 yaourt -S yaourt-gui
 # Удалить скаченные архивы и папки.
